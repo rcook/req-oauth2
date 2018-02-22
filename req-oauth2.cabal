@@ -18,12 +18,6 @@ source-repository head
 
 library
   default-language:                         Haskell2010
-  if os(darwin)
-    cpp-options:                            -DOS_MACOS
-  if os(linux)
-    cpp-options:                            -DOS_LINUX
-  if os(windows)
-    cpp-options:                            -DOS_WINDOWS
   hs-source-dirs:                           lib
   ghc-options:                              -W
                                             -Wall
@@ -35,12 +29,6 @@ library
 
 executable req-oauth2-app
   default-language:                         Haskell2010
-  if os(darwin)
-    cpp-options:                            -DOS_MACOS
-  if os(linux)
-    cpp-options:                            -DOS_LINUX
-  if os(windows)
-    cpp-options:                            -DOS_WINDOWS
   hs-source-dirs:                           app
   main-is:                                  Main.hs
   ghc-options:                              -threaded
@@ -57,12 +45,6 @@ executable req-oauth2-app
 test-suite req-oauth2-test
   type:                                     exitcode-stdio-1.0
   default-language:                         Haskell2010
-  if os(darwin)
-    cpp-options:                            -DOS_MACOS
-  if os(linux)
-    cpp-options:                            -DOS_LINUX
-  if os(windows)
-    cpp-options:                            -DOS_WINDOWS
   hs-source-dirs:                           test
   main-is:                                  Spec.hs
   ghc-options:                              -threaded
