@@ -24,8 +24,23 @@ library
                                             -Werror=incomplete-patterns
                                             -Werror=missing-methods
                                             -fwarn-unused-imports
-  build-depends:                            base >= 4.7 && < 5
-  exposed-modules:                          ReqOauth2
+  build-depends:                            aeson
+                                          , base >= 4.7 && < 5
+                                          , base64-bytestring
+                                          , bytestring
+                                          , data-default-class
+                                          , lens
+                                          , modern-uri
+                                          , req
+                                          , req-url-extra
+                                          , text
+  exposed-modules:                          Network.HTTP.Req.OAuth2
+                                          , Network.HTTP.Req.OAuth2.AccessToken
+                                          , Network.HTTP.Req.OAuth2.App
+                                          , Network.HTTP.Req.OAuth2.AuthCode
+                                          , Network.HTTP.Req.OAuth2.RefreshToken
+                                          , Network.HTTP.Req.OAuth2.Types
+                                          , Network.HTTP.Req.OAuth2.Util
 
 executable req-oauth2-app
   default-language:                         Haskell2010
@@ -55,8 +70,6 @@ test-suite req-oauth2-test
                                             -Werror=incomplete-patterns
                                             -Werror=missing-methods
                                             -fwarn-unused-imports
-  other-modules:                            ReqOauth2Spec
   build-depends:                            base >= 4.7 && < 5
                                           , hspec
                                           , req-oauth2
-
