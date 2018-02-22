@@ -17,21 +17,21 @@ import           Network.HTTP.Req.OAuth2.App
 import           Network.HTTP.Req.OAuth2.Types
 import           Network.HTTP.Req.OAuth2.Util
 
-data RefreshTokenRequest = RefreshTokenRequest ClientId ClientSecret RefreshToken
+data RefreshTokenRequest = RefreshTokenRequest ClientPair RefreshToken
 
-data RefreshTokenResponse = RefreshTokenResponse AccessToken RefreshToken
+data RefreshTokenResponse = RefreshTokenResponse TokenPair
 
 fetchRefreshToken :: App -> RefreshTokenRequest -> IO (Either String RefreshTokenResponse)
-fetchRefreshToken app (RefreshTokenRequest clientId clientSecret (RefreshToken rt)) = do
+fetchRefreshToken app (RefreshTokenRequest clientPair (RefreshToken rt)) = do
     let Just (url, _) = toUrlHttps $ tokenUri app
     parseEither pResponse <$>
         oAuth2Post
             url
-            (tokenAuthHeader clientId clientSecret)
+            (oAuth2AuthHeader clientPair)
             ("grant_type" =: ("refresh_token" :: Text) <> "refresh_token" =: rt <> "expires_in" =: ("3600" :: Text))
 
 pResponse :: Value -> Parser RefreshTokenResponse
 pResponse =
-    withObject "RefreshTokenResponse" $ \v -> RefreshTokenResponse
+    withObject "RefreshTokenResponse" $ \v -> (RefreshTokenResponse . ) . TokenPair
         <$> (AccessToken <$> v .: "access_token")
         <*> (RefreshToken <$> v .: "refresh_token")
