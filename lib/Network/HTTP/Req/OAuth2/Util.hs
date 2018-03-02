@@ -4,7 +4,7 @@
 module Network.HTTP.Req.OAuth2.Util
     ( oAuth2AuthHeader
     , oAuth2BearerHeader
-    , oAuth2Post
+    , oAuth2PostRaw
     ) where
 
 import           Data.Aeson (Value)
@@ -37,7 +37,7 @@ oAuth2AuthHeader clientPair =
 oAuth2BearerHeader :: AccessToken -> Option 'Https
 oAuth2BearerHeader (AccessToken at) = oAuth2Bearer (Text.encodeUtf8 at)
 
-oAuth2Post :: Url 'Https -> Option 'Https -> FormUrlEncodedParam -> IO Value
-oAuth2Post url opts formBody =
+oAuth2PostRaw :: Url 'Https -> Option 'Https -> FormUrlEncodedParam -> IO Value
+oAuth2PostRaw url opts formBody =
     runReq def $
         responseBody <$> req POST url (ReqBodyUrlEnc formBody) jsonResponse opts

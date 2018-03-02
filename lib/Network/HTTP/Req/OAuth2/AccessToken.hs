@@ -33,7 +33,7 @@ fetchAccessToken app (AccessTokenRequest clientPair (AuthCode ac)) = do
     let ClientPair (ClientId cid) _ = clientPair
         Just (url, _) = toUrlHttps $ tokenUri app
     parseEither pResponse <$>
-        oAuth2Post
+        oAuth2PostRaw
             url
             (oAuth2AuthHeader clientPair)
             ("code" =: ac <> "grant_type" =: ("authorization_code" :: Text) <> "client_id" =: cid <> "expires_in" =: ("3600" :: Text))

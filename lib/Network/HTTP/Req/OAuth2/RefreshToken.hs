@@ -25,7 +25,7 @@ fetchRefreshToken :: App -> RefreshTokenRequest -> IO (Either String RefreshToke
 fetchRefreshToken app (RefreshTokenRequest clientPair (RefreshToken rt)) = do
     let Just (url, _) = toUrlHttps $ tokenUri app
     parseEither pResponse <$>
-        oAuth2Post
+        oAuth2PostRaw
             url
             (oAuth2AuthHeader clientPair)
             ("grant_type" =: ("refresh_token" :: Text) <> "refresh_token" =: rt <> "expires_in" =: ("3600" :: Text))
