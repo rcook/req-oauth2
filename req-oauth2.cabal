@@ -34,6 +34,7 @@ library
                                           , req
                                           , req-url-extra
                                           , text
+                                          , transformers
   exposed-modules:                          Network.HTTP.Req.OAuth2
                                           , Network.HTTP.Req.OAuth2.AccessToken
                                           , Network.HTTP.Req.OAuth2.App

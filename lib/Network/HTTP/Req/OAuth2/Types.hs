@@ -3,11 +3,16 @@ module Network.HTTP.Req.OAuth2.Types
     , ClientId(..)
     , ClientPair(..)
     , ClientSecret(..)
+    , OAuth2
     , RefreshToken(..)
     , TokenPair(..)
     ) where
 
+import           Control.Monad.Trans.State.Strict (StateT)
 import           Data.Text (Text)
+
+-- | OAuth2 application monad
+type OAuth2 = StateT TokenPair IO
 
 -- | OAuth2 client ID
 newtype ClientId = ClientId Text deriving (Eq, Show)
