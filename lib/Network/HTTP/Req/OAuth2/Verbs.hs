@@ -26,6 +26,7 @@ import           Network.HTTP.Types (unauthorized401)
 
 oAuth2Get ::
     (Value -> Parser a)
+    -> Url 'Https
     -> APIAction a
 oAuth2Get p apiUrl app tokenPair@(TokenPair accessToken _) = do
     (temp, tokenPair') <- catch (getHelper apiUrl accessToken >>= \value -> return (value, tokenPair)) $

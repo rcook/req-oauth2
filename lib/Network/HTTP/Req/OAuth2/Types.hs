@@ -56,7 +56,6 @@ data App = App
 
 -- | Web request action
 type APIAction a =
-    Url 'Https
-    -> App
+    App
     -> TokenPair
     -> IO (APIResult a, TokenPair)
