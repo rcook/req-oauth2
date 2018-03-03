@@ -2,7 +2,9 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module Network.HTTP.Req.OAuth2.Util
-    ( evalOAuth2
+    ( acceptLanguage
+    , evalOAuth2
+    , hasResponseStatus
     , oAuth2AuthHeader
     , oAuth2BearerHeader
     , oAuth2PostRaw
@@ -15,8 +17,10 @@ import qualified Data.ByteString as ByteString (append, concat)
 import qualified Data.ByteString.Base64 as Base64 (encode)
 import           Data.Default.Class (def)
 import qualified Data.Text.Encoding as Text (encodeUtf8)
+import qualified Network.HTTP.Client as HTTP (HttpException(..), HttpExceptionContent(..), responseStatus)
 import           Network.HTTP.Req
                     ( FormUrlEncodedParam
+                    , HttpException(..)
                     , Option
                     , POST(..)
                     , ReqBodyUrlEnc(..)
@@ -30,6 +34,16 @@ import           Network.HTTP.Req
                     , runReq
                     )
 import           Network.HTTP.Req.OAuth2.Types
+import           Network.HTTP.Types (Status)
+
+hasResponseStatus :: HttpException -> Status -> Bool
+hasResponseStatus
+    (VanillaHttpException (HTTP.HttpExceptionRequest _ (HTTP.StatusCodeException response _))) status =
+    HTTP.responseStatus response == status
+hasResponseStatus _ _ = False
+
+acceptLanguage :: Option scheme
+acceptLanguage = header "Accept-Language" "en_US"
 
 oAuth2AuthHeader :: ClientPair -> Option scheme
 oAuth2AuthHeader clientPair =

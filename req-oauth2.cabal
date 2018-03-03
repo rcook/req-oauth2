@@ -40,10 +40,10 @@ library
   exposed-modules:                          Network.HTTP.Req.OAuth2
                                           , Network.HTTP.Req.OAuth2.AccessToken
                                           , Network.HTTP.Req.OAuth2.AuthCode
-                                          , Network.HTTP.Req.OAuth2.HttpUtil
                                           , Network.HTTP.Req.OAuth2.RefreshToken
                                           , Network.HTTP.Req.OAuth2.Types
                                           , Network.HTTP.Req.OAuth2.Util
+                                          , Network.HTTP.Req.OAuth2.Verbs
 
 executable req-oauth2-app
   default-language:                         Haskell2010
