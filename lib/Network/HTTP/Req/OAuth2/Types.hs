@@ -6,6 +6,7 @@ module Network.HTTP.Req.OAuth2.Types
     , OAuth2
     , RefreshToken(..)
     , TokenPair(..)
+    , UpdateTokenPair
     ) where
 
 import           Control.Monad.Trans.State.Strict (StateT)
@@ -31,3 +32,6 @@ data ClientPair = ClientPair ClientId ClientSecret deriving (Eq, Show)
 
 -- | OAuth2 access/refresh token pair
 data TokenPair = TokenPair AccessToken RefreshToken deriving Show
+
+-- | Action invoked in response to update to access/refresh token pair
+type UpdateTokenPair = TokenPair -> IO ()

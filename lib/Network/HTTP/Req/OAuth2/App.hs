@@ -1,6 +1,5 @@
 module Network.HTTP.Req.OAuth2.App
     ( App(..)
-    , OAuth2
     , evalOAuth2
     , runOAuth2
     ) where
@@ -10,8 +9,10 @@ import           Network.HTTP.Req.OAuth2.Types
 import           Text.URI (URI)
 
 data App = App
-    { authUri :: URI
-    , tokenUri :: URI
+    { appAuthUri :: URI
+    , appTokenUri :: URI
+    , appUpdateTokenPair :: UpdateTokenPair
+    , appClientPair :: ClientPair
     }
 
 evalOAuth2 :: TokenPair -> OAuth2 a -> IO a

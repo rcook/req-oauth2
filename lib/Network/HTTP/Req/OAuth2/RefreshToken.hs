@@ -17,13 +17,14 @@ import           Network.HTTP.Req.OAuth2.App
 import           Network.HTTP.Req.OAuth2.Types
 import           Network.HTTP.Req.OAuth2.Util
 
-data RefreshTokenRequest = RefreshTokenRequest ClientPair RefreshToken
+data RefreshTokenRequest = RefreshTokenRequest RefreshToken
 
 data RefreshTokenResponse = RefreshTokenResponse TokenPair
 
 fetchRefreshToken :: App -> RefreshTokenRequest -> IO (Either String RefreshTokenResponse)
-fetchRefreshToken app (RefreshTokenRequest clientPair (RefreshToken rt)) = do
-    let Just (url, _) = toUrlHttps $ tokenUri app
+fetchRefreshToken app (RefreshTokenRequest (RefreshToken rt)) = do
+    let clientPair = appClientPair app
+        Just (url, _) = toUrlHttps $ appTokenUri app
     parseEither pResponse <$>
         oAuth2PostRaw
             url

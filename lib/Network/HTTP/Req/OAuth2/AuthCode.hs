@@ -37,7 +37,7 @@ buildAuthUriWithOpts u qs = do
 -- to be required.
 getAuthCode :: App -> ClientId -> PromptForCallbackURI -> IO AuthCode
 getAuthCode app (ClientId clientId) prompt = do
-    let Just authUriWithOpts = buildAuthUriWithOpts (authUri app)
+    let Just authUriWithOpts = buildAuthUriWithOpts (appAuthUri app)
                                     [ ("client_id", clientId)
                                     , ("response_type", "code")
                                     , ("scope", "weight")

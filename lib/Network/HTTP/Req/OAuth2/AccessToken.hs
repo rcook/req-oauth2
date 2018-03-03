@@ -17,7 +17,7 @@ import           Network.HTTP.Req.OAuth2.Types
 import           Network.HTTP.Req.OAuth2.Util
 import           Network.HTTP.Req.Url.Extra (toUrlHttps)
 
-data AccessTokenRequest = AccessTokenRequest ClientPair AuthCode
+data AccessTokenRequest = AccessTokenRequest AuthCode
 
 data AccessTokenResponse = AccessTokenResponse TokenPair
 
@@ -29,9 +29,10 @@ data AccessTokenResponse = AccessTokenResponse TokenPair
 -- We don't pass @client_secret@ because that would be silly. We also don't bother
 -- with @redirect_uri@ since this do not seem to be required.
 fetchAccessToken :: App -> AccessTokenRequest -> IO (Either String AccessTokenResponse)
-fetchAccessToken app (AccessTokenRequest clientPair (AuthCode ac)) = do
-    let ClientPair (ClientId cid) _ = clientPair
-        Just (url, _) = toUrlHttps $ tokenUri app
+fetchAccessToken app (AccessTokenRequest (AuthCode ac)) = do
+    let clientPair = appClientPair app
+        ClientPair (ClientId cid) _ = clientPair
+        Just (url, _) = toUrlHttps $ appTokenUri app
     parseEither pResponse <$>
         oAuth2PostRaw
             url
