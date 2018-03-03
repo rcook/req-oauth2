@@ -2,6 +2,7 @@
 
 module Network.HTTP.Req.OAuth2.Types
     ( APIAction
+    , APICall
     , APIResult
     , AccessToken(..)
     , App(..)
@@ -59,3 +60,6 @@ type APIAction a =
     App
     -> TokenPair
     -> IO (APIResult a, TokenPair)
+
+-- | TODO
+type APICall a = APIAction a -> OAuth2 (APIResult a)
