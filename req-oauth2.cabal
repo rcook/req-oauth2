@@ -58,7 +58,6 @@ executable req-oauth2-app
                                             -Werror=missing-methods
                                             -fwarn-unused-imports
   build-depends:                            base >= 4.7 && < 5
-                                          , req-oauth2
 
 test-suite req-oauth2-test
   type:                                     exitcode-stdio-1.0
@@ -75,4 +74,3 @@ test-suite req-oauth2-test
                                             -fwarn-unused-imports
   build-depends:                            base >= 4.7 && < 5
                                           , hspec
-                                          , req-oauth2

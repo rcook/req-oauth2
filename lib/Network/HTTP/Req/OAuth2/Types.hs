@@ -1,5 +1,3 @@
-{-# LANGUAGE DataKinds #-}
-
 module Network.HTTP.Req.OAuth2.Types
     ( APIAction
     , APICall
@@ -17,7 +15,6 @@ module Network.HTTP.Req.OAuth2.Types
 
 import           Control.Monad.Trans.State.Strict (StateT)
 import           Data.Text (Text)
-import           Network.HTTP.Req (Scheme(..), Url)
 import           Text.URI (URI)
 
 -- | OAuth2 application monad

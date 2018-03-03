@@ -61,10 +61,10 @@ oAuth2PostRaw url opts formBody =
     runReq def $
         responseBody <$> req POST url (ReqBodyUrlEnc formBody) jsonResponse opts
 
-evalOAuth2 :: App -> TokenPair -> ((forall a . APICall a) -> OAuth2 a) -> IO a
+evalOAuth2 :: App -> TokenPair -> ((forall b . APICall b) -> OAuth2 a) -> IO a
 evalOAuth2 app tokenPair f = flip evalStateT tokenPair (f $ mkCall app)
 
-runOAuth2 :: App -> TokenPair -> ((forall a . APICall a) -> OAuth2 a) -> IO (a, TokenPair)
+runOAuth2 :: App -> TokenPair -> ((forall b . APICall b) -> OAuth2 a) -> IO (a, TokenPair)
 runOAuth2 app tokenPair f = flip runStateT tokenPair (f $ mkCall app)
 
 mkCall :: App -> APICall a
