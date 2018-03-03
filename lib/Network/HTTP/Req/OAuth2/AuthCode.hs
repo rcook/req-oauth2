@@ -8,7 +8,6 @@ module Network.HTTP.Req.OAuth2.AuthCode
 
 import           Control.Lens ((^..), (.~), (&))
 import           Data.Text (Text)
-import           Network.HTTP.Req.OAuth2.App
 import           Network.HTTP.Req.OAuth2.Types
 import           Text.URI (QueryParam(..), URI, mkQueryKey, mkQueryValue, unRText)
 import           Text.URI.Lens (queryParam, uriQuery)

@@ -29,6 +29,8 @@ library
                                           , base64-bytestring
                                           , bytestring
                                           , data-default-class
+                                          , http-client
+                                          , http-types
                                           , lens
                                           , modern-uri
                                           , req
@@ -37,8 +39,8 @@ library
                                           , transformers
   exposed-modules:                          Network.HTTP.Req.OAuth2
                                           , Network.HTTP.Req.OAuth2.AccessToken
-                                          , Network.HTTP.Req.OAuth2.App
                                           , Network.HTTP.Req.OAuth2.AuthCode
+                                          , Network.HTTP.Req.OAuth2.HttpUtil
                                           , Network.HTTP.Req.OAuth2.RefreshToken
                                           , Network.HTTP.Req.OAuth2.Types
                                           , Network.HTTP.Req.OAuth2.Util

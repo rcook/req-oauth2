@@ -13,7 +13,6 @@ import           Data.Monoid ((<>))
 import           Data.Text (Text)
 import           Network.HTTP.Req ((=:))
 import           Network.HTTP.Req.Url.Extra (toUrlHttps)
-import           Network.HTTP.Req.OAuth2.App
 import           Network.HTTP.Req.OAuth2.Types
 import           Network.HTTP.Req.OAuth2.Util
 

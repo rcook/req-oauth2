@@ -2,11 +2,14 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module Network.HTTP.Req.OAuth2.Util
-    ( oAuth2AuthHeader
+    ( evalOAuth2
+    , oAuth2AuthHeader
     , oAuth2BearerHeader
     , oAuth2PostRaw
+    , runOAuth2
     ) where
 
+import           Control.Monad.Trans.State.Strict (evalStateT, runStateT)
 import           Data.Aeson (Value)
 import qualified Data.ByteString as ByteString (append, concat)
 import qualified Data.ByteString.Base64 as Base64 (encode)
@@ -41,3 +44,9 @@ oAuth2PostRaw :: Url 'Https -> Option 'Https -> FormUrlEncodedParam -> IO Value
 oAuth2PostRaw url opts formBody =
     runReq def $
         responseBody <$> req POST url (ReqBodyUrlEnc formBody) jsonResponse opts
+
+evalOAuth2 :: TokenPair -> OAuth2 a -> IO a
+evalOAuth2 = flip evalStateT
+
+runOAuth2 :: TokenPair -> OAuth2 a -> IO (a, TokenPair)
+runOAuth2 = flip runStateT

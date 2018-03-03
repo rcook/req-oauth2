@@ -11,7 +11,6 @@ import           Data.Aeson.Types (Parser, Value, parseEither)
 import           Data.Monoid ((<>))
 import           Data.Text (Text)
 import           Network.HTTP.Req ((=:))
-import           Network.HTTP.Req.OAuth2.App
 import           Network.HTTP.Req.OAuth2.AuthCode
 import           Network.HTTP.Req.OAuth2.Types
 import           Network.HTTP.Req.OAuth2.Util

@@ -1,5 +1,10 @@
+{-# LANGUAGE DataKinds #-}
+
 module Network.HTTP.Req.OAuth2.Types
-    ( AccessToken(..)
+    ( APIAction
+    , APIResult
+    , AccessToken(..)
+    , App(..)
     , ClientId(..)
     , ClientPair(..)
     , ClientSecret(..)
@@ -11,6 +16,8 @@ module Network.HTTP.Req.OAuth2.Types
 
 import           Control.Monad.Trans.State.Strict (StateT)
 import           Data.Text (Text)
+import           Network.HTTP.Req (Scheme(..), Url)
+import           Text.URI (URI)
 
 -- | OAuth2 application monad
 type OAuth2 = StateT TokenPair IO
@@ -35,3 +42,21 @@ data TokenPair = TokenPair AccessToken RefreshToken deriving Show
 
 -- | Action invoked in response to update to access/refresh token pair
 type UpdateTokenPair = TokenPair -> IO ()
+
+-- | Result of a web request
+type APIResult a = Either String a
+
+-- | A web API application
+data App = App
+    { appAuthUri :: URI
+    , appTokenUri :: URI
+    , appUpdateTokenPair :: UpdateTokenPair
+    , appClientPair :: ClientPair
+    }
+
+-- | Web request action
+type APIAction a =
+    Url 'Https
+    -> App
+    -> TokenPair
+    -> IO (APIResult a, TokenPair)
