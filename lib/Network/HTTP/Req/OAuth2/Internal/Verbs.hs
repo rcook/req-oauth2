@@ -1,6 +1,6 @@
 {-# LANGUAGE DataKinds #-}
 
-module Network.HTTP.Req.OAuth2.Verbs
+module Network.HTTP.Req.OAuth2.Internal.Verbs
     ( oAuth2Get
     ) where
 
@@ -21,9 +21,9 @@ import           Network.HTTP.Req
                     , responseBody
                     , runReq
                     )
-import           Network.HTTP.Req.OAuth2.RefreshToken
-import           Network.HTTP.Req.OAuth2.Types
-import           Network.HTTP.Req.OAuth2.Util
+import           Network.HTTP.Req.OAuth2.Internal.RefreshToken
+import           Network.HTTP.Req.OAuth2.Internal.Types
+import           Network.HTTP.Req.OAuth2.Internal.Util
 import           Network.HTTP.Types (unauthorized401)
 
 oAuth2Get ::

@@ -1,4 +1,4 @@
-module Network.HTTP.Req.OAuth2.Types
+module Network.HTTP.Req.OAuth2.Internal.Types
     ( AccessToken(..)
     , App(..)
     , ClientId(..)

@@ -11,17 +11,28 @@ This package provides basic support of OAuth2 authentication for <https://hackag
 -}
 
 module Network.HTTP.Req.OAuth2
-    ( module Network.HTTP.Req.OAuth2.AccessToken
-    , module Network.HTTP.Req.OAuth2.AuthCode
-    , module Network.HTTP.Req.OAuth2.RefreshToken
-    , module Network.HTTP.Req.OAuth2.Types
-    , module Network.HTTP.Req.OAuth2.Util
-    , module Network.HTTP.Req.OAuth2.Verbs
+    ( AccessToken(..)
+    , AccessTokenRequest(..)
+    , AccessTokenResponse(..)
+    , App(..)
+    , ClientId(..)
+    , ClientPair(..)
+    , ClientSecret(..)
+    , OAuth2
+    , PromptForCallbackUri
+    , RefreshToken(..)
+    , TokenPair(..)
+    , UpdateTokenPair
+    , evalOAuth2
+    , fetchAccessToken
+    , getAuthCode
+    , oAuth2Get
+    , runOAuth2
     ) where
 
-import Network.HTTP.Req.OAuth2.AccessToken
-import Network.HTTP.Req.OAuth2.AuthCode
-import Network.HTTP.Req.OAuth2.RefreshToken
-import Network.HTTP.Req.OAuth2.Types
-import Network.HTTP.Req.OAuth2.Util
-import Network.HTTP.Req.OAuth2.Verbs
+import Network.HTTP.Req.OAuth2.Internal.AccessToken
+import Network.HTTP.Req.OAuth2.Internal.AuthCode
+import Network.HTTP.Req.OAuth2.Internal.RefreshToken
+import Network.HTTP.Req.OAuth2.Internal.Types
+import Network.HTTP.Req.OAuth2.Internal.Util
+import Network.HTTP.Req.OAuth2.Internal.Verbs

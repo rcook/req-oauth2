@@ -2,7 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes #-}
 
-module Network.HTTP.Req.OAuth2.Util
+module Network.HTTP.Req.OAuth2.Internal.Util
     ( acceptLanguage
     , evalOAuth2
     , hasResponseStatus
@@ -34,7 +34,7 @@ import           Network.HTTP.Req
                     , responseBody
                     , runReq
                     )
-import           Network.HTTP.Req.OAuth2.Types
+import           Network.HTTP.Req.OAuth2.Internal.Types
 import           Network.HTTP.Types (Status)
 
 hasResponseStatus :: HttpException -> Status -> Bool

@@ -1,18 +1,18 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Network.HTTP.Req.OAuth2.AuthCode
+module Network.HTTP.Req.OAuth2.Internal.AuthCode
     ( AuthCode(..)
-    , PromptForCallbackURI
+    , PromptForCallbackUri
     , getAuthCode
     ) where
 
 import           Control.Lens ((^..), (.~), (&))
 import           Data.Text (Text)
-import           Network.HTTP.Req.OAuth2.Types
+import           Network.HTTP.Req.OAuth2.Internal.Types
 import           Text.URI (QueryParam(..), URI, mkQueryKey, mkQueryValue, unRText)
 import           Text.URI.Lens (queryParam, uriQuery)
 
-type PromptForCallbackURI = URI -> IO URI
+type PromptForCallbackUri = URI -> IO URI
 
 newtype AuthCode = AuthCode Text deriving Show
 
@@ -34,7 +34,7 @@ buildAuthUriWithOpts u qs = do
 --
 -- We don't bother with @redirect_uri@ or @state@ since they do not seem
 -- to be required.
-getAuthCode :: App -> ClientId -> PromptForCallbackURI -> IO AuthCode
+getAuthCode :: App -> ClientId -> PromptForCallbackUri -> IO AuthCode
 getAuthCode app (ClientId clientId) prompt = do
     let Just authUriWithOpts = buildAuthUriWithOpts (appAuthUri app)
                                     [ ("client_id", clientId)

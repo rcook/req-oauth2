@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Network.HTTP.Req.OAuth2.AccessToken
+module Network.HTTP.Req.OAuth2.Internal.AccessToken
     ( AccessTokenRequest(..)
     , AccessTokenResponse(..)
     , fetchAccessToken
@@ -11,9 +11,9 @@ import           Data.Aeson.Types (Parser, Value, parseEither)
 import           Data.Monoid ((<>))
 import           Data.Text (Text)
 import           Network.HTTP.Req ((=:))
-import           Network.HTTP.Req.OAuth2.AuthCode
-import           Network.HTTP.Req.OAuth2.Types
-import           Network.HTTP.Req.OAuth2.Util
+import           Network.HTTP.Req.OAuth2.Internal.AuthCode
+import           Network.HTTP.Req.OAuth2.Internal.Types
+import           Network.HTTP.Req.OAuth2.Internal.Util
 import           Network.HTTP.Req.Url.Extra (toUrlHttps)
 
 data AccessTokenRequest = AccessTokenRequest AuthCode
