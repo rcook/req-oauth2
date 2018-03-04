@@ -12,8 +12,7 @@ module Network.HTTP.Req.OAuth2.Util
     , runOAuth2
     ) where
 
-import           Control.Monad.IO.Class (liftIO)
-import           Control.Monad.Trans.State.Strict (evalStateT, get, put, runStateT)
+import           Control.Monad.Trans.State.Strict (evalStateT, runStateT)
 import           Data.Aeson (Value)
 import qualified Data.ByteString as ByteString (append, concat)
 import qualified Data.ByteString.Base64 as Base64 (encode)
@@ -61,15 +60,8 @@ oAuth2PostRaw url opts formBody =
     runReq def $
         responseBody <$> req POST url (ReqBodyUrlEnc formBody) jsonResponse opts
 
-evalOAuth2 :: App -> TokenPair -> ((forall b . APICall b) -> OAuth2 a) -> IO a
-evalOAuth2 app tokenPair f = flip evalStateT tokenPair (f $ mkCall app)
+evalOAuth2 :: TokenPair -> OAuth2 a -> IO a
+evalOAuth2 = flip evalStateT
 
-runOAuth2 :: App -> TokenPair -> ((forall b . APICall b) -> OAuth2 a) -> IO (a, TokenPair)
-runOAuth2 app tokenPair f = flip runStateT tokenPair (f $ mkCall app)
-
-mkCall :: App -> APICall a
-mkCall app action = do
-    tp <- get
-    (result, tp') <- liftIO $ action app tp
-    put tp'
-    return result
+runOAuth2 :: TokenPair -> OAuth2 a -> IO (a, TokenPair)
+runOAuth2 = flip runStateT

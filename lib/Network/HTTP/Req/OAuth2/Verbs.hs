@@ -5,6 +5,8 @@ module Network.HTTP.Req.OAuth2.Verbs
     ) where
 
 import           Control.Exception (catch, throwIO)
+import           Control.Monad.IO.Class (liftIO)
+import           Control.Monad.Trans.State.Strict (get, put)
 import           Data.Aeson (Value)
 import           Data.Aeson.Types (Parser, parseEither)
 import           Data.Default.Class (def)
@@ -27,16 +29,23 @@ import           Network.HTTP.Types (unauthorized401)
 oAuth2Get ::
     (Value -> Parser a)
     -> Url 'Https
-    -> APIAction a
-oAuth2Get p apiUrl app tokenPair@(TokenPair accessToken _) = do
-    (temp, tokenPair') <- catch (getHelper apiUrl accessToken >>= \value -> return (value, tokenPair)) $
-                            \e -> if hasResponseStatus e unauthorized401
+    -> App
+    -> OAuth2 a
+oAuth2Get p apiUrl app = do
+    tokenPair@(TokenPair accessToken _) <- get
+    (value, tokenPair') <-
+        liftIO $ catch
+                    (getHelper apiUrl accessToken >>= \value -> return (value, tokenPair)) $ \e ->
+                                if hasResponseStatus e unauthorized401
                                     then do
                                         newTokenPair@(TokenPair newAccessToken _) <- refreshHelper app tokenPair
                                         result <- getHelper apiUrl newAccessToken
                                         return (result, newTokenPair)
                                     else throwIO e
-    return (parseEither p temp, tokenPair')
+    put tokenPair'
+    case parseEither p value of
+        Left e -> liftIO (throwIO $ ParseError e)
+        Right result -> return result
 
 getHelper ::
     Url 'Https
