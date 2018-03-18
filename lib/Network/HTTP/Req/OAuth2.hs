@@ -7,7 +7,7 @@ Maintainer  : rcook@rcook.org
 Stability   : stable
 Portability : portable
 
-This package provides basic support of OAuth2 authentication for <https://hackage.haskell.org/package/req Req>.
+This package provides basic support for OAuth2 authentication for <https://hackage.haskell.org/package/req Req>.
 -}
 
 module Network.HTTP.Req.OAuth2
