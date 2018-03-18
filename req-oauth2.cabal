@@ -1,6 +1,8 @@
 
 name:                                       req-oauth2
 version:                                    0.1.0.0
+synopsis:                                   Provides OAuth2 authentication for use with Req
+description:                                This package adds OAuth2 authentication to Req.
 homepage:                                   https://github.com/rcook/req-oauth2#readme
 license:                                    MIT
 license-file:                               LICENSE
