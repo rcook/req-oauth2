@@ -16,7 +16,6 @@ import           Control.Monad.Trans.State.Strict (evalStateT, runStateT)
 import           Data.Aeson (Value)
 import qualified Data.ByteString as ByteString (append, concat)
 import qualified Data.ByteString.Base64 as Base64 (encode)
-import           Data.Default.Class (def)
 import qualified Data.Text.Encoding as Text (encodeUtf8)
 import qualified Network.HTTP.Client as HTTP (HttpException(..), HttpExceptionContent(..), responseStatus)
 import           Network.HTTP.Req
@@ -27,6 +26,7 @@ import           Network.HTTP.Req
                     , ReqBodyUrlEnc(..)
                     , Scheme(..)
                     , Url
+                    , defaultHttpConfig
                     , header
                     , jsonResponse
                     , oAuth2Bearer
@@ -57,7 +57,7 @@ oAuth2BearerHeader (AccessToken at) = oAuth2Bearer (Text.encodeUtf8 at)
 
 oAuth2PostRaw :: Url 'Https -> Option 'Https -> FormUrlEncodedParam -> IO Value
 oAuth2PostRaw url opts formBody =
-    runReq def $
+    runReq defaultHttpConfig $
         responseBody <$> req POST url (ReqBodyUrlEnc formBody) jsonResponse opts
 
 evalOAuth2 :: TokenPair -> OAuth2 a -> IO a

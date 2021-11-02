@@ -9,13 +9,12 @@ import           Control.Monad.IO.Class (liftIO)
 import           Control.Monad.Trans.State.Strict (get, put)
 import           Data.Aeson (Value)
 import           Data.Aeson.Types (Parser, parseEither)
-import           Data.Default.Class (def)
-import           Data.Monoid ((<>))
 import           Network.HTTP.Req
                     ( GET(..)
                     , NoReqBody(..)
                     , Scheme(..)
                     , Url
+                    , defaultHttpConfig
                     , jsonResponse
                     , req
                     , responseBody
@@ -52,7 +51,7 @@ getHelper ::
     -> AccessToken
     -> IO Value
 getHelper url accessToken =
-    responseBody <$> (runReq def $ req GET url NoReqBody jsonResponse (oAuth2BearerHeader accessToken <> acceptLanguage))
+    responseBody <$> (runReq defaultHttpConfig $ req GET url NoReqBody jsonResponse (oAuth2BearerHeader accessToken <> acceptLanguage))
 
 refreshHelper ::
     App

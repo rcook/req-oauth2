@@ -8,13 +8,11 @@ module Network.HTTP.Req.OAuth2.Internal.AccessToken
 
 import           Data.Aeson ((.:), withObject)
 import           Data.Aeson.Types (Parser, Value, parseEither)
-import           Data.Monoid ((<>))
 import           Data.Text (Text)
-import           Network.HTTP.Req ((=:))
+import           Network.HTTP.Req ((=:), useHttpsURI)
 import           Network.HTTP.Req.OAuth2.Internal.AuthCode
 import           Network.HTTP.Req.OAuth2.Internal.Types
 import           Network.HTTP.Req.OAuth2.Internal.Util
-import           Network.HTTP.Req.Url.Extra (toUrlHttps)
 
 data AccessTokenRequest = AccessTokenRequest AuthCode
 
@@ -31,7 +29,7 @@ fetchAccessToken :: App -> AccessTokenRequest -> IO (Either String AccessTokenRe
 fetchAccessToken app (AccessTokenRequest (AuthCode ac)) = do
     let clientPair = appClientPair app
         ClientPair (ClientId cid) _ = clientPair
-        Just (url, _) = toUrlHttps $ appTokenUri app
+        Just (url, _) = useHttpsURI $ appTokenUri app
     parseEither pResponse <$>
         oAuth2PostRaw
             url

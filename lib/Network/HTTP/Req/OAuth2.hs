@@ -25,6 +25,7 @@ module Network.HTTP.Req.OAuth2
     , UpdateTokenPair
     , evalOAuth2
     , fetchAccessToken
+    , fetchRefreshToken
     , getAuthCode
     , oAuth2Get
     , runOAuth2

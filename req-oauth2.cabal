@@ -36,7 +36,6 @@ library
                                           , lens
                                           , modern-uri
                                           , req
-                                          , req-url-extra
                                           , text
                                           , transformers
   exposed-modules:                          Network.HTTP.Req.OAuth2

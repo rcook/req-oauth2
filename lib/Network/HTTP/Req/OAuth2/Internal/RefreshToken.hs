@@ -8,10 +8,8 @@ module Network.HTTP.Req.OAuth2.Internal.RefreshToken
 
 import           Data.Aeson ((.:), withObject)
 import           Data.Aeson.Types (Parser, Value, parseEither)
-import           Data.Monoid ((<>))
 import           Data.Text (Text)
-import           Network.HTTP.Req ((=:))
-import           Network.HTTP.Req.Url.Extra (toUrlHttps)
+import           Network.HTTP.Req ((=:), useHttpsURI)
 import           Network.HTTP.Req.OAuth2.Internal.Types
 import           Network.HTTP.Req.OAuth2.Internal.Util
 
@@ -22,7 +20,7 @@ data RefreshTokenResponse = RefreshTokenResponse TokenPair
 fetchRefreshToken :: App -> RefreshTokenRequest -> IO (Either String RefreshTokenResponse)
 fetchRefreshToken app (RefreshTokenRequest (RefreshToken rt)) = do
     let clientPair = appClientPair app
-        Just (url, _) = toUrlHttps $ appTokenUri app
+        Just (url, _) = useHttpsURI $ appTokenUri app
     parseEither pResponse <$>
         oAuth2PostRaw
             url
